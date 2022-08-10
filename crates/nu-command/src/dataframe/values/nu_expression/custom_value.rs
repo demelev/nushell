@@ -24,7 +24,9 @@ impl CustomValue for NuExpression {
     }
 
     fn value_string(&self) -> String {
-        self.typetag_name().to_string()
+        let string = &self.0;
+        format!("NuExpression : {string:?}")
+        // self.typetag_name().to_string()
     }
 
     fn to_base_value(&self, span: Span) -> Result<Value, ShellError> {

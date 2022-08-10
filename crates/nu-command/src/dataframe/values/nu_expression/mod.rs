@@ -9,7 +9,7 @@ use serde::{Deserialize, Deserializer, Serialize, Serializer};
 // Object is behind and Option to allow easy implementation of
 // the Deserialize trait
 #[derive(Default, Clone)]
-pub struct NuExpression(Option<Expr>);
+pub struct NuExpression(pub Option<Expr>);
 
 // Mocked serialization of the LazyFrame object
 impl Serialize for NuExpression {
@@ -33,7 +33,11 @@ impl<'de> Deserialize<'de> for NuExpression {
 
 impl fmt::Debug for NuExpression {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "NuExpression")
+        if let NuExpression(Some(expr)) = self {
+            write!(f, "NuExpression {expr:?}", )
+        } else {
+            write!(f, "NuExpression")
+        }
     }
 }
 

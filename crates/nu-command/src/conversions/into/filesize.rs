@@ -1,4 +1,5 @@
 use nu_engine::CallExt;
+use crate::dataframe::values::NuExpression;
 use nu_protocol::{
     ast::{Call, CellPath},
     engine::{Command, EngineState, Stack},
@@ -137,11 +138,27 @@ pub fn action(input: &Value, span: Span) -> Value {
                 val: 0,
                 span: value_span,
             },
-            _ => Value::Error {
-                error: ShellError::UnsupportedInput(
-                    "'into filesize' for unsupported type".into(),
-                    value_span,
-                ),
+            Value::CustomValue { val, .. } => {
+                let data = val.value_string();
+                Value::Error {
+                    error: ShellError::UnsupportedInput(
+                        format!("'into filesize' for unsupported type {data:?}").into(),
+                        value_span,
+                    ),
+                }
+
+                // Value::Filesize {
+                    // val: 0,
+                    // span: value_span,
+                // }
+            },
+            da @ _ => {
+                Value::Error {
+                    error: ShellError::UnsupportedInput(
+                        format!("'into filesize' for unsupported type {da:?}").into(),
+                        value_span,
+                    ),
+                } 
             },
         }
     } else {
