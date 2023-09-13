@@ -96,6 +96,7 @@ fn with_operator(
     rhs_span: Span,
     op_span: Span,
 ) -> Result<Value, ShellError> {
+    println!("With operator {op_span:?} {operator:?}");
     match operator {
         Operator::Plus => apply_arithmetic(left, right, lhs_span, Add::add),
         Operator::Minus => apply_arithmetic(left, right, lhs_span, Sub::sub),

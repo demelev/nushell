@@ -80,7 +80,7 @@ winres = "0.1"
 
 [features]
 plugin = ["nu-plugin", "nu-cli/plugin", "nu-parser/plugin", "nu-command/plugin", "nu-protocol/plugin", "nu-engine/plugin"]
-default = ["plugin", "which-support", "trash-support"]
+default = ["plugin", "which-support", "trash-support", "dataframe"]
 stable = ["default"]
 extra = ["default", "dataframe", "database"]
 wasi = []
